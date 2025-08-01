@@ -68,5 +68,15 @@ module BraveSearch
       downloader = PdfDownloader.new(storage: storage)
       downloader.batch_download(pdf_urls, folder: folder, &progress_callback)
     end
+
+    def export(format:)
+      exporter = Exporter.for(format)
+      exporter.export(self)
+    end
+
+    def export_to_storage(format:, storage:, key:)
+      exporter = Exporter.for(format)
+      exporter.export_to_storage(self, storage: storage, key: key)
+    end
   end
 end

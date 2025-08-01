@@ -27,6 +27,39 @@ module BraveSearch
       results.download_pdfs(storage: storage, folder: folder, &progress_callback)
     end
 
+    def search_and_export(q:, format:, storage: nil, key: nil, count: 10, **options)
+      results = search(q: q, count: count, **options)
+
+      if storage && key
+        results.export_to_storage(format: format, storage: storage, key: key)
+      else
+        results.export(format: format)
+      end
+    end
+
+    def search_and_export_async(q:, format:, storage_config: nil, key: nil, **options)
+      return unless defined?(ActiveJob)
+
+      Jobs::ExportJob.perform_later(
+        query: q,
+        format: format,
+        storage_config: storage_config,
+        key: key,
+        **options
+      )
+    end
+
+    def search_and_download_pdfs_async(q:, storage_config: nil, folder: "pdfs", **options)
+      return unless defined?(ActiveJob)
+
+      Jobs::PdfDownloadJob.perform_later(
+        query: q,
+        storage_config: storage_config,
+        folder: folder,
+        **options
+      )
+    end
+
     def news_search(q:, count: 10, **options)
       params = build_params(q: q, count: count, **options)
       response = make_request("/news/search", params)

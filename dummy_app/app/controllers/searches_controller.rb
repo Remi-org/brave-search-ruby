@@ -40,6 +40,42 @@ class SearchesController < ApplicationController
     render json: { error: e.message }, status: 422
   end
 
+  def export
+    query = params[:q] || "ruby programming"
+    format = params[:format] || "json"
+    
+    client = BraveSearch::Client.new
+    
+    if params[:async]
+      storage_config = {
+        provider: :hetzner,
+        options: {
+          bucket: "research-exports", 
+          endpoint: "https://fsn1.your-objectstorage.com"
+        }
+      }
+      
+      key = "exports/#{Date.today}/#{SecureRandom.hex(8)}.#{format}"
+      job = client.search_and_export_async(
+        q: query,
+        format: format,
+        storage_config: storage_config,
+        key: key
+      )
+      
+      render json: { job_id: job.job_id, key: key }
+    else
+      result = client.search_and_export(q: query, format: format.to_sym)
+      
+      respond_to do |format_type|
+        format_type.json { render json: result[:content] }
+        format_type.any { send_data result[:content], filename: "search_results.#{format}" }
+      end
+    end
+  rescue StandardError => e
+    render json: { error: e.message }, status: 422
+  end
+
   private
 
   def extract_pdf_urls(results)

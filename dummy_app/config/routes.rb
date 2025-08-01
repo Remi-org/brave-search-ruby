@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # BraveSearch examples
   get "search" => "searches#show"
   post "download_pdfs" => "searches#download_pdfs"
+  get "export" => "searches#export"
 
   # Defines the root path route ("/")
   # root "posts#index"
