@@ -22,6 +22,11 @@ module BraveSearch
       Results.new(data)
     end
 
+    def search_and_download_pdfs(q:, count: 10, storage: nil, folder: "pdfs", &progress_callback)
+      results = search(q: q, count: count)
+      results.download_pdfs(storage: storage, folder: folder, &progress_callback)
+    end
+
     def news_search(q:, count: 10, **options)
       params = build_params(q: q, count: count, **options)
       response = make_request("/news/search", params)

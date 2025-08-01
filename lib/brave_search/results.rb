@@ -59,5 +59,14 @@ module BraveSearch
     def [](key)
       @raw_data[key]
     end
+
+    def pdf_urls
+      web_results.filter_map { |result| result[:url] if result[:url]&.end_with?(".pdf") }
+    end
+
+    def download_pdfs(storage: nil, folder: "pdfs", &progress_callback)
+      downloader = PdfDownloader.new(storage: storage)
+      downloader.batch_download(pdf_urls, folder: folder, &progress_callback)
+    end
   end
 end

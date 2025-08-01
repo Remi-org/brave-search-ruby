@@ -3,6 +3,8 @@
 require_relative "brave_search/version"
 require_relative "brave_search/configuration"
 require_relative "brave_search/results"
+require_relative "brave_search/storage"
+require_relative "brave_search/pdf_downloader"
 require_relative "brave_search/client"
 require_relative "brave_search/async_client"
 require_relative "brave_search/railtie" if defined?(Rails)

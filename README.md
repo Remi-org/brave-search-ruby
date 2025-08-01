@@ -91,6 +91,49 @@ Async do
 end
 ```
 
+### S3-Compatible Storage & PDF Downloads
+
+```ruby
+# Configure storage
+BraveSearch.configure do |config|
+  config.storage_provider = :hetzner
+  config.storage_bucket = "research-papers"
+  config.storage_endpoint = "https://fsn1.your-objectstorage.com"
+end
+
+# Search and download PDFs automatically
+client = BraveSearch::Client.new
+downloaded = client.search_and_download_pdfs(
+  q: "machine learning papers filetype:pdf",
+  count: 5,
+  folder: "ml-papers/#{Date.today}"
+) do |completed, total|
+  puts "Downloaded #{completed}/#{total} PDFs"
+end
+
+# Manual PDF extraction and download
+results = client.search(q: "research papers filetype:pdf")
+pdf_urls = results.pdf_urls
+puts "Found #{pdf_urls.length} PDFs"
+
+# Download to specific storage
+storage = BraveSearch::Storage.for(:digitalocean, 
+  bucket: "documents", 
+  endpoint: "https://nyc3.digitaloceanspaces.com"
+)
+
+results.download_pdfs(storage: storage, folder: "research") do |completed, total|
+  puts "Progress: #{completed}/#{total}"
+end
+```
+
+### Supported Storage Providers
+
+- **AWS S3**: `:aws`
+- **Hetzner Object Storage**: `:hetzner`
+- **DigitalOcean Spaces**: `:digitalocean`
+- **Any S3-compatible**: `:s3`
+
 ### Rails Integration
 
 1. Install the initializer:
