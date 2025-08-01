@@ -93,6 +93,10 @@ module BraveSearch
       handle_response(response)
     end
 
+    def summarizer
+      @summarizer ||= Summarizer.new(self)
+    end
+
     private
 
     def build_params(q:, count: nil, **options)
@@ -101,14 +105,21 @@ module BraveSearch
       params.merge(options)
     end
 
-    def make_request(endpoint, params)
-      self.class.get(endpoint, {
-                       query: params,
-                       headers: {
-                         "X-Subscription-Token" => @api_key,
-                         "Accept" => "application/json"
-                       }
-                     })
+    def make_request(endpoint, params, method: :get)
+      headers = {
+        "X-Subscription-Token" => @api_key,
+        "Accept" => "application/json"
+      }
+
+      case method
+      when :get
+        self.class.get(endpoint, { query: params, headers: headers })
+      when :post
+        headers["Content-Type"] = "application/json"
+        self.class.post(endpoint, { body: params.to_json, headers: headers })
+      else
+        raise ArgumentError, "Unsupported HTTP method: #{method}"
+      end
     end
 
     def handle_response(response)

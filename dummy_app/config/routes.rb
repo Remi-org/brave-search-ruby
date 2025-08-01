@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "search" => "searches#show"
   post "download_pdfs" => "searches#download_pdfs"
   get "export" => "searches#export"
+  get "summarize" => "searches#summarize"
 
   # Defines the root path route ("/")
   # root "posts#index"

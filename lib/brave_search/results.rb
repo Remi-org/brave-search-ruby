@@ -78,5 +78,16 @@ module BraveSearch
       exporter = Exporter.for(format)
       exporter.export_to_storage(self, storage: storage, key: key)
     end
+
+    def summarize_with(client)
+      client.summarizer.search_and_summarize(q: @query || "search results")
+    end
+
+    def all_text_content
+      content = []
+      content += web_results.flat_map { |r| [r[:title], r[:description]].compact }
+      content += news_results.flat_map { |r| [r[:title], r[:description]].compact }
+      content.join(" ")
+    end
   end
 end

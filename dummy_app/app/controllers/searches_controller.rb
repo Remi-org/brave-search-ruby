@@ -76,6 +76,36 @@ class SearchesController < ApplicationController
     render json: { error: e.message }, status: 422
   end
 
+  def summarize
+    query = params[:q] || "AI research trends 2024"
+    
+    client = BraveSearch::Client.new
+    
+    if params[:key]
+      # Summarize existing search results
+      summary = client.summarizer.summarize(key: params[:key])
+      render json: {
+        type: "summary",
+        summary: summary.summary,
+        status: summary.status
+      }
+    else
+      # Search and summarize in one step
+      result = client.summarizer.search_and_summarize(q: query)
+      
+      render json: {
+        type: "search_and_summarize",
+        query: query,
+        summary: result.summary,
+        key: result.key,
+        status: result.status,
+        enriched_results: result.enriched_results.map(&:to_h)
+      }
+    end
+  rescue StandardError => e
+    render json: { error: e.message }, status: 422
+  end
+
   private
 
   def extract_pdf_urls(results)

@@ -6,6 +6,8 @@ require_relative "brave_search/results"
 require_relative "brave_search/storage"
 require_relative "brave_search/pdf_downloader"
 require_relative "brave_search/exporter"
+require_relative "brave_search/summarizer"
+require_relative "brave_search/summary_result"
 require_relative "brave_search/client"
 require_relative "brave_search/async_client"
 require_relative "brave_search/railtie" if defined?(Rails)
