@@ -11,14 +11,14 @@ module BraveSearch
     def download(url, folder: "pdfs")
       filename = extract_filename(url)
       key = "#{folder}/#{filename}"
-      
+
       @storage.download(url, key: key)
     end
 
     def batch_download(urls, folder: "pdfs", &progress_callback)
       total = urls.length
       completed = Concurrent::AtomicFixnum.new(0)
-      
+
       futures = urls.map do |url|
         Concurrent::Future.execute do
           result = download(url, folder: folder)

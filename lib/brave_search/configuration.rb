@@ -2,8 +2,7 @@
 
 module BraveSearch
   class Configuration
-    attr_accessor :api_key, :base_url, :timeout, :retry_attempts
-    attr_accessor :storage_provider, :storage_bucket, :storage_endpoint
+    attr_accessor :api_key, :base_url, :timeout, :retry_attempts, :storage_provider, :storage_bucket, :storage_endpoint
 
     def initialize
       @api_key = ENV.fetch("BRAVE_API_KEY", nil)

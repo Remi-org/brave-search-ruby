@@ -9,12 +9,12 @@ RSpec.describe BraveSearch::PdfDownloader do
   describe "#download" do
     it "downloads single PDF to storage" do
       url = "https://example.com/paper.pdf"
-      
+
       allow(storage).to receive(:download).with(url, key: "pdfs/paper.pdf")
-                                         .and_return(key: "pdfs/paper.pdf", size: 1024)
+                                          .and_return(key: "pdfs/paper.pdf", size: 1024)
 
       result = downloader.download(url)
-      
+
       expect(result[:key]).to eq("pdfs/paper.pdf")
       expect(result[:size]).to eq(1024)
     end
@@ -30,7 +30,7 @@ RSpec.describe BraveSearch::PdfDownloader do
       allow(storage).to receive(:download).and_return(size: 1024)
 
       results = downloader.batch_download(urls)
-      
+
       expect(results).to be_an(Array)
       expect(results.length).to eq(2)
     end

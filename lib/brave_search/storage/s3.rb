@@ -26,11 +26,11 @@ module BraveSearch
       def download(url, key:)
         uri = URI(url)
         response = Net::HTTP.get_response(uri)
-        
+
         raise "Download failed: #{response.code}" unless response.code == "200"
 
         upload_result = upload(response.body, key: key)
-        
+
         {
           key: key,
           url: upload_result[:url],
