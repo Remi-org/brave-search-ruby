@@ -5,9 +5,15 @@ require_relative "brave_search/configuration"
 require_relative "brave_search/results"
 require_relative "brave_search/storage"
 require_relative "brave_search/pdf_downloader"
+require_relative "brave_search/exporter"
 require_relative "brave_search/client"
 require_relative "brave_search/async_client"
 require_relative "brave_search/railtie" if defined?(Rails)
+
+if defined?(ActiveJob)
+  require_relative "brave_search/jobs/export_job"
+  require_relative "brave_search/jobs/pdf_download_job"
+end
 
 module BraveSearch
   class Error < StandardError; end

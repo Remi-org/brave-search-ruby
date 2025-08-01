@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "async", "~> 2.0"
+  spec.add_dependency "caxlsx", "~> 4.0"
   spec.add_dependency "concurrent-ruby", "~> 1.2"
   spec.add_dependency "httparty", "~> 0.21"
 
