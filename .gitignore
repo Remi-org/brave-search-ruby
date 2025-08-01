@@ -1,0 +1,86 @@
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+.bundle/
+vendor/bundle/
+lib/bundler/man/
+.rvm/
+.rvmrc
+
+# Documentation cache and generated files
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
+
+# Environment normalization
+/.bundle/
+/vendor/bundle
+/lib/bundler/man/
+
+# For a library or gem, you might want to ignore these files since the code is
+# intended to run in multiple environments
+Gemfile.lock
+.ruby-version
+.ruby-gemset
+
+# Unless supporting rvm and/or rbenv, ignore version files
+.rvmrc
+.rbenv-version
+
+# Ignore bundler config
+/.bundle
+
+# Ignore the build directory
+/build/*
+
+# Ignore cache
+*.sassc
+.sass-cache
+/connect.lock
+/libpeerconnection.log
+/npm-debug.log*
+/yarn-error.log
+/yarn-debug.log*
+.nyc_output
+
+# Ignore master key for decryption
+/config/master.key
+
+# Rails
+/dummy_app/log/
+/dummy_app/tmp/
+/dummy_app/storage/
+/dummy_app/public/assets/
+/dummy_app/config/credentials.yml.enc
+/dummy_app/config/master.key
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Examples and demos
+examples/
+
+# Plan file
+PLAN.md
