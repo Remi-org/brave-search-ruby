@@ -5,12 +5,12 @@ require_relative "lib/brave_search/version"
 Gem::Specification.new do |spec|
   spec.name = "brave_search"
   spec.version = BraveSearch::VERSION
-  spec.authors = ["Remi"]
-  spec.email = ["remi@example.com"]
+  spec.authors = ["Remi AI"]
+  spec.email = ["denis@goremi.co.uk"]
 
   spec.summary = "Ruby client for Brave Search API"
   spec.description = "Simple Ruby client for Brave Search API with Rails integration"
-  spec.homepage = "https://github.com/example/brave-search-ruby"
+  spec.homepage = "https://github.com/Remi-org/brave-search-ruby"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
 
